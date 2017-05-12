@@ -14,6 +14,18 @@
 			div {
 				position: fixed;
 				border-radius: 50%;
+			}			
+
+			.circle.opacityT {
+				animation: mymove 1s;
+				animation-fill-mode: forwards;
+		  }
+ 
+			@keyframes mymove {
+					0%   {opacity: 1;
+					visibility: visible;}
+					100% {opacity: 0;
+					visibility: hidden;}
 			}
     </style>
 </head> 
@@ -39,6 +51,7 @@
 			
 			var circle;
 			var radius = getRandomInt(20, 50);
+			var color = 'rgba(' + getRandomInt(0,255) + ',' + getRandomInt(0,255) + ',' + getRandomInt(0,255) + ',1)';
 			var sprite = {
 				x: 0,
 				y: 0,
@@ -54,14 +67,12 @@
 			  
 				//circle = new createjs.Shape();
 				
-				let color = 'rgba(' + getRandomInt(0,255) + ',' + getRandomInt(0,255) + ',' + getRandomInt(0,255) + ',1)';
-
 				//circle.graphics.beginFill(color).drawCircle(0, 0, radius);
 				
 				document.body.innerHTML = "<div id='my' style='width: " + radius + p + "; height: " +  radius + p + "; background-color: " + color + "'></div>";
 				var cir = document.getElementById('my');
-				cir.style.left = getRandomInt(0, window.innerWidth) + p;
-				cir.style.top  = getRandomInt(0, window.innerHeight) + p;	
+				cir.style.left = getRandomInt(0, window.innerWidth) - (radius/2) + p;
+				cir.style.top  = getRandomInt(0, window.innerHeight) - (radius/2) + p;	
 				
 				//Добавление управляемого объекта
 				//stage.addChild(circle);
@@ -78,7 +89,7 @@
 				//stage.update();
 				//createjs.Ticker.addEventListener("tick", onTickHandler);
 				//createjs.Ticker.setFPS(60);				
-				socket.emit('connected', playerID, parseInt(cir.style.left), parseInt(cir.style.top), color, radius, sprite.x, sprite.y);
+				socket.emit('connected', playerID, parseFloat(cir.style.left), parseFloat(cir.style.top), color, radius, sprite.x, sprite.y);
 			});
 						
 			//first loading of players
@@ -93,20 +104,20 @@
 			});
 			
 			socket.on('player moved', function(playerID, x, y) {
-			
+				console.log("rad = " + window[playerID]);
 				var cir = document.getElementById(playerID);
 				
-				cir.style.left = x - window[playerID] + p;
-				cir.style.top  = y - window[playerID] + p;	
+				cir.style.left = x + p;
+				cir.style.top  = y + p;	
 				
 			});
-			/*
 			//player disconnected
 			socket.on('dis', function(playerID) {
-				stage.removeChild(window[playerID].circle);
-				stage.removeChild(window[playerID].pointer);
+				let cir = document.getElementById(playerID);
+				cir.remove();
 			});		
 		
+			/*
 			stage.on('stagemousemove', function(evt) {
 				mouseX = evt.stageX;
 				mouseY = evt.stageY;
@@ -131,8 +142,9 @@
 				//console.log(d.getHours(),':',d.getMinutes(),':',d.getSeconds(), ':', d.getMilliseconds(), ' update to ', x, '-', y);
 				
 				var cir = document.getElementById('my');
-				cir.style.left = x - (radius/2) + p;
-				cir.style.top = y - (radius/2) + p;		     
+				cir.style.left = x + p;
+				cir.style.top = y + p;	
+				CreateTail(x, y, color, radius);
 			});							
 			
 			/*function onTickHandler(evt) {
@@ -205,10 +217,21 @@
 				stage.update();*/
 			}
 
+			function CreateTail(X,Y, color, radius){
+				parent = document.getElementById('my');
+        let circle = document.createElement('div');				
+        circle.className = "circle opacityT"; 
+        circle.style.backgroundColor = color;
+        circle.style.width = radius + "px"; 
+        circle.style.height = radius + "px";
+				parent.appendChild(circle);
+        circle.style.left = X - (radius/2) + p;
+        circle.style.top  = Y - (radius/2) + p;
+			}
 		
 			function move(evt) {
 				//console.log(evt.x + " " + evt.y)
-				socket.emit('player moved', evt.x, evt.y);
+				socket.emit('player moved', evt.x - (radius/2), evt.y - (radius/2));
 			
 			}	
 		
