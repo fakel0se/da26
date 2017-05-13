@@ -24,6 +24,14 @@
 			@keyframes mymove {
 					0%   {opacity: 1;
 					visibility: visible;}
+					20%   {opacity: 0.8;
+					visibility: visible;}
+					40%   {opacity: 0.6;
+					visibility: visible;}					
+					60%   {opacity: 0.4;
+					visibility: visible;}					
+					80%   {opacity: 0.2;
+					visibility: visible;}
 					100% {opacity: 0;
 					visibility: hidden;}
 			}
@@ -226,7 +234,10 @@
         circle.style.height = radius + "px";
 				parent.appendChild(circle);
         circle.style.left = X + p;
-        circle.style.top  = Y + p;
+        circle.style.top  = Y + p;				
+				circle.addEventListener("animationend", function() {
+					circle.remove();
+				});
 			}
 		
 			function move(evt) {
