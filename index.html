@@ -47,7 +47,7 @@
     </style>
 </head> 
   <body onmousemove="move(event)">
-    <div id="canvas"></div><br>
+    <div id="floating" ontouchmove="move_object(event);">Drag me</div>
     <script >
 			var socket = io();
 
@@ -68,7 +68,7 @@
 				
 				document.body.innerHTML = "<div id='my' style='width: " + radius + p + "; height: " +  radius + p + "; background-color: " + color + "'></div>";
 				var cir = document.getElementById('my');
-				cir.addEventListener("ontouchmove", moveTouch);
+				//cir.addEventListener("ontouchmove", moveTouch);
 				cir.style.left = getRandomInt(0, window.innerWidth) - (radius/2) + p;
 				cir.style.top  = getRandomInt(0, window.innerHeight) - (radius/2) + p;	
 				
@@ -229,6 +229,17 @@
 			function moveTouch(evtt) {
 				socket.emit('player moved', evt.touch[0].pageX - (radius/2), evt.touch[0].pageY - (radius/2));
 			}
+			
+			 function move_object(event) {
+    // Подавить событие
+    event.preventDefault();
+    var left=event.touches[0].pageX;
+    var top=event.touches[0].pageY;
+    // Переместить элемент
+    var el=document.getElementById('floating');
+    el.style.top=top+'px';
+    el.style.left=left+'px';
+} 
 			
 			function movee(evt) {
 				//console.log(evt.x + " " + evt.y)
