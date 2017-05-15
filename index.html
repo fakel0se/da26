@@ -46,7 +46,7 @@
 			}
     </style>
 </head> 
-  <body ontouchmove="move_object(event);">
+  <body ontouchmove="moveObject(event);" onmousemove="move(event)">
     <script >
 			var socket = io();
 
@@ -226,7 +226,7 @@
 			}
 		
 			
-			 function move_object(event) {
+			 function moveObject(event) {
     // Подавить событие
 				event.preventDefault();
 				var left=event.touches[0].pageX;
