@@ -66,7 +66,7 @@
 			
 			socket.on('connecting', function(playerID) {
 				
-				document.body.innerHTML += "<div id='my' style='width: " + radius + p + "; height: " +  radius + p + "; background-color: " + color + "'></div>";
+				document.body.innerHTML = "<div id='my' ontouchmove='move(event);' style='width: " + radius + p + "; height: " +  radius + p + "; background-color: " + color + "'></div>";
 				var cir = document.getElementById('my');
 				//cir.addEventListener("ontouchmove", moveTouch);
 				cir.style.left = getRandomInt(0, window.innerWidth) - (radius/2) + p;
@@ -226,7 +226,7 @@
 				});
 			}
 		
-			function moveTouch(evtt) {
+			function moveTouch(evt) {
 				socket.emit('player moved', evt.touch[0].pageX - (radius/2), evt.touch[0].pageY - (radius/2));
 			}
 			
@@ -241,7 +241,7 @@
     el.style.left=left+'px';
 } 
 			
-			function movee(evt) {
+			function move(evt) {
 				//console.log(evt.x + " " + evt.y)
 				socket.emit('player moved', evt.x - (radius/2), evt.y - (radius/2));
 			
