@@ -8,8 +8,15 @@
     <style>
       #canvas {border: solid 1px black;
 							 cursor: none;}
+							 
+			html {
+				height: 100%;
+				width: 100%
+			}
 			body {
-				margin: 0px;		
+				margin: 0px;
+				height: 100%;
+				width: 100%
 			}
 			div {
 				position: fixed;
@@ -44,8 +51,8 @@
     <script >
 			var socket = io();
 
-			document.body.style.width = window.innerWidth - 50 + 'px'; 
-			document.body.style.height = window.innerHeight - 50 + 'px'; 	
+			//document.body.style.width = window.innerWidth - 50 + 'px'; 
+			//document.body.style.height = window.innerHeight - 50 + 'px'; 	
 			//canvas = document.querySelector('canvas');
 			//canvas.width = window.innerWidth-50;
 			//canvas.height = window.innerHeight-50;
