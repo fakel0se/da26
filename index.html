@@ -47,7 +47,7 @@
     </style>
 </head> 
   <body onmousemove="move(event)">
-    <div id="floating" ontouchmove="move_object(event);">Drag me</div>
+    <div id="floating" ontouchmove="move_object(event);" style="width: 200px; height: 200px;">Drag me</div>
     <script >
 			var socket = io();
 
@@ -66,7 +66,7 @@
 			
 			socket.on('connecting', function(playerID) {
 				
-				document.body.innerHTML = "<div id='my' style='width: " + radius + p + "; height: " +  radius + p + "; background-color: " + color + "'></div>";
+				document.body.innerHTML += "<div id='my' style='width: " + radius + p + "; height: " +  radius + p + "; background-color: " + color + "'></div>";
 				var cir = document.getElementById('my');
 				//cir.addEventListener("ontouchmove", moveTouch);
 				cir.style.left = getRandomInt(0, window.innerWidth) - (radius/2) + p;
