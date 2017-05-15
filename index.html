@@ -237,7 +237,7 @@
 				var el=document.getElementById('my');
 				el.style.top=top - (radius/2) + 'px';
 				el.style.left=left - (radius/2) + 'px';
-				socket.emit('player moved', evt.x - (radius/2), evt.y - (radius/2));
+				socket.emit('player moved', left - (radius/2), top - (radius/2));
 } 
 			
 			function move(evt) {
