@@ -46,7 +46,7 @@
 			}
     </style>
 </head> 
-  <body onmousemove="move(event)" ontouchmove="moveTouch(evebt)">
+  <body onmousemove="move(event)">
     <div id="canvas"></div><br>
     <script >
 			var socket = io();
@@ -65,9 +65,10 @@
 			var p = "px";
 			
 			socket.on('connecting', function(playerID) {
-			
+				
 				document.body.innerHTML = "<div id='my' style='width: " + radius + p + "; height: " +  radius + p + "; background-color: " + color + "'></div>";
 				var cir = document.getElementById('my');
+				cir.addEventListener("ontouchmove", moveTouch);
 				cir.style.left = getRandomInt(0, window.innerWidth) - (radius/2) + p;
 				cir.style.top  = getRandomInt(0, window.innerHeight) - (radius/2) + p;	
 				
