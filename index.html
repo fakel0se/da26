@@ -96,12 +96,13 @@
 				showPlayer(ID, x, y, color, radius, xCur, yCur);
 			});
 			
-			socket.on('player moved', function(playerID, x, y) {
-				console.log("rad = " + window[playerID]);
+			socket.on('player moved', function(playerID, player) {
+				//console.log("rad = " + window[playerID]);
 				var cir = document.getElementById(playerID);
 				
-				cir.style.left = x + p;
-				cir.style.top  = y + p;	
+				cir.style.left = player.x + p;
+				cir.style.top  = player.y + p;
+				CreateTail(player.x, player.y, player.clr, player.r);
 				
 			});
 			//player disconnected
@@ -210,7 +211,7 @@
 				stage.update();*/
 			}
 
-			function CreateTail(X,Y, color, radius){
+			function CreateTail(X, Y, color, radius){
 				parent = document.getElementById('my');
         let circle = document.createElement('div');				
         circle.className = "circle opacityT"; 

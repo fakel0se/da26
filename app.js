@@ -51,14 +51,12 @@ function onConnection(socket){
 	socket.on('player moved', function(x, y){
 		if (!players[socket.id])
 			return;
+		players[socket.id].x = x;
+		players[socket.id].y = y;
+
 		console.log("moving: ", socket.id, " mouse in: ", x, '-', y);
 		socket.emit('imoved', x, y);
-		socket.broadcast.emit('player moved', socket.id, x, y);
-		if (x && y)
-		{	
-			players[socket.id].x = x;
-			players[socket.id].y = y;
-		}
+		socket.broadcast.emit('player moved', socket.id, players[socket.id]);
   });	
   				
   socket.on('disconnect', function(){
