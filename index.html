@@ -236,14 +236,14 @@
 				var left=event.touches[0].pageX;
 				var top=event.touches[0].pageY;
 				// Переместить элемент				
-				socket.emit('player moved', evt.x - (radius/2), evt.y - (radius/2));
 				
-				//var el=document.getElementById('my');
-				//el.style.top=top+'px';
-				//el.style.left=left+'px';
+				var el=document.getElementById('my');
+				el.style.top=top+'px';
+				el.style.left=left+'px';
+				socket.emit('player moved', evt.x - (radius/2), evt.y - (radius/2));
 } 
 			
-			function move(evt) {
+			function movee(evt) {
 				//console.log(evt.x + " " + evt.y)
 				socket.emit('player moved', evt.x - (radius/2), evt.y - (radius/2));
 			
