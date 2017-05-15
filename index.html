@@ -235,13 +235,15 @@
 				event.preventDefault();
 				var left=event.touches[0].pageX;
 				var top=event.touches[0].pageY;
-				// Переместить элемент
-				var el=document.getElementById('my');
-				el.style.top=top+'px';
-				el.style.left=left+'px';
+				// Переместить элемент				
+				socket.emit('player moved', evt.x - (radius/2), evt.y - (radius/2));
+				
+				//var el=document.getElementById('my');
+				//el.style.top=top+'px';
+				//el.style.left=left+'px';
 } 
 			
-			function movee(evt) {
+			function move(evt) {
 				//console.log(evt.x + " " + evt.y)
 				socket.emit('player moved', evt.x - (radius/2), evt.y - (radius/2));
 			
