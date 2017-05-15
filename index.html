@@ -46,26 +46,11 @@
 			}
     </style>
 </head> 
-  <body onmousemove="move(event)">
+  <body onmousemove="move(event)" ontouchmove="moveTouch(evebt)">
     <div id="canvas"></div><br>
     <script >
 			var socket = io();
 
-			//document.body.style.width = window.innerWidth - 50 + 'px'; 
-			//document.body.style.height = window.innerHeight - 50 + 'px'; 	
-			//canvas = document.querySelector('canvas');
-			//canvas.width = window.innerWidth-50;
-			//canvas.height = window.innerHeight-50;
-			//stage = new createjs.Stage("canvas");
-			
-			/*var data = {
-				images: ["/pointer"],
-				frames: [
-					[113, 4, 100, 100]
-				],
-			};			
-			var spriteSheet = new createjs.SpriteSheet(data);*/
-			
 			var circle;
 			var radius = getRandomInt(20, 50);
 			var color = 'rgba(' + getRandomInt(0,255) + ',' + getRandomInt(0,255) + ',' + getRandomInt(0,255) + ',1)';
@@ -80,32 +65,23 @@
 			var p = "px";
 			
 			socket.on('connecting', function(playerID) {
-				//sprite = new createjs.Sprite(spriteSheet);	
-			  
-				//circle = new createjs.Shape();
-				
-				//circle.graphics.beginFill(color).drawCircle(0, 0, radius);
-				
+			
 				document.body.innerHTML = "<div id='my' style='width: " + radius + p + "; height: " +  radius + p + "; background-color: " + color + "'></div>";
 				var cir = document.getElementById('my');
 				cir.style.left = getRandomInt(0, window.innerWidth) - (radius/2) + p;
 				cir.style.top  = getRandomInt(0, window.innerHeight) - (radius/2) + p;	
 				
 				//Добавление управляемого объекта
-				//stage.addChild(circle);
 				mouseX = cir.style.left;
 				mouseY = cir.style.top;		
 				
 				//Добавление курсора
-				//stage.addChild(sprite);
+				//Пока не используется
 				sprite.x = 0;
 				sprite.y = 0;
 				sprite.scaleX = 0.4;
 				sprite.scaleY = 0.4;
-				
-				//stage.update();
-				//createjs.Ticker.addEventListener("tick", onTickHandler);
-				//createjs.Ticker.setFPS(60);				
+						
 				socket.emit('connected', playerID, parseFloat(cir.style.left), parseFloat(cir.style.top), color, radius, sprite.x, sprite.y);
 			});
 						
@@ -249,7 +225,11 @@
 				});
 			}
 		
-			function move(evt) {
+			function moveTouch(evtt) {
+				socket.emit('player moved', evt.touch[0].pageX - (radius/2), evt.touch[0].pageY - (radius/2));
+			}
+			
+			function movee(evt) {
 				//console.log(evt.x + " " + evt.y)
 				socket.emit('player moved', evt.x - (radius/2), evt.y - (radius/2));
 			
