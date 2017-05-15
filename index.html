@@ -227,17 +227,14 @@
 		
 			
 			 function moveObject(event) {
-    // Подавить событие
+				// Подавить событие
 				event.preventDefault();
 				var left=event.touches[0].pageX;
 				var top=event.touches[0].pageY;
 				// Переместить элемент				
 				
-				var el=document.getElementById('my');
-				el.style.top=top - (radius/2) + 'px';
-				el.style.left=left - (radius/2) + 'px';
 				socket.emit('player moved', left - (radius/2), top - (radius/2));
-} 
+			} 
 			
 			function move(evt) {
 				//console.log(evt.x + " " + evt.y)
